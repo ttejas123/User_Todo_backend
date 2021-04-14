@@ -56,7 +56,7 @@ router.get('/readNotCheck', (req, res)=>{
 	})
 })
 
-//Completed Task reading of specific user
+//Completed Task reading of 
 router.get('/readChecked', async (req, res)=>{
 	const todaysTime = new Date();
 	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
@@ -69,7 +69,7 @@ router.get('/readChecked', async (req, res)=>{
 	})
 })
 
-//readAll task of Specific user
+//readAll task of specific user
 router.post('/readAllSecUser', async (req, res)=>{
 	const User_ID = req.body.User_ID;
 	await taskData.find({User_ID:User_ID},(err, data)=>{
@@ -81,8 +81,8 @@ router.post('/readAllSecUser', async (req, res)=>{
 	})
 })
 
-//ongoing Task reading 
-router.get('/readNotCheck', (req, res)=>{
+//ongoing Task reading specific user
+router.post('/readNotCheck', (req, res)=>{
 	const todaysTime = new Date();
 	const User_ID = req.body.User_ID;
 	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
@@ -95,8 +95,8 @@ router.get('/readNotCheck', (req, res)=>{
 	})
 })
 
-//Completed Task reading
-router.get('/readChecked', async (req, res)=>{
+//Completed Task reading specific user
+router.post('/readChecked', async (req, res)=>{
 	const todaysTime = new Date();
 	const User_ID = req.body.User_ID;
 	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
