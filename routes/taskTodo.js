@@ -43,7 +43,7 @@ router.get('/read',(req, res)=>{
 	})
 })
  
-//ongoing Task reading 
+//ongoing Task reading of specific user 
 router.get('/readNotCheck', (req, res)=>{
 	const todaysTime = new Date();
 	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
@@ -55,11 +55,52 @@ router.get('/readNotCheck', (req, res)=>{
 		}
 	})
 })
-//Completed Task reading
+
+//Completed Task reading of specific user
 router.get('/readChecked', async (req, res)=>{
 	const todaysTime = new Date();
 	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
 	await taskData.find({Created_Date:date, Task_Status:2},(err, data)=>{
+		if(err){
+			res.status(500).send(err);
+		}else{
+			res.send(data)
+		}
+	})
+})
+
+//readAll task of Specific user
+router.post('/readAllSecUser', async (req, res)=>{
+	const User_ID = req.body.User_ID;
+	await taskData.find({User_ID:User_ID},(err, data)=>{
+		if(err){
+			res.status(500).send(err);
+		}else{
+			res.send(data)
+		}
+	})
+})
+
+//ongoing Task reading 
+router.get('/readNotCheck', (req, res)=>{
+	const todaysTime = new Date();
+	const User_ID = req.body.User_ID;
+	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
+	taskData.find({Created_Date:date, Task_Status:1, User_ID:User_ID},(err, data)=>{
+		if(err){
+			res.status(500).send(err);
+		}else{
+			res.send(data)
+		}
+	})
+})
+
+//Completed Task reading
+router.get('/readChecked', async (req, res)=>{
+	const todaysTime = new Date();
+	const User_ID = req.body.User_ID;
+	const date = todaysTime.getFullYear()+"-"+(todaysTime.getMonth()+1)+"-"+todaysTime.getDate();
+	await taskData.find({Created_Date:date, Task_Status:2, User_ID:User_ID},(err, data)=>{
 		if(err){
 			res.status(500).send(err);
 		}else{
