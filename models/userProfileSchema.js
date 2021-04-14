@@ -8,16 +8,35 @@ const userDataSchema = new mongoose.Schema({
 	Email:{
 		type:String,
 		require:true,
+		unique:true
 	},
-	Mnumber:{
+	password:{
+		type:String,
+		require:true,
+	},
+	Mobnumber:{
 		type: String,
 		require:true,
 	},
 	profileUrl:{
 		type:String,
-		require:true,
 	},
-	projectTaskTodo:{
+	is_Deactivated:{
+		type:Number,
+	},
+	last_LogIn:{
+		type:Date,
+	},
+	is_admin:{
+		type:Number,
+	},
+	Created_Date:{
+		type:Date,
+	},
+	Updated_Date:{
+		type:Date,
+	},
+	Deactivated_Date:{
 		type:Date,
 	}
 });

@@ -9,17 +9,42 @@ const userDataSchema = new mongoose.Schema({
 		type:String,
 		require:true,
 	},
-	ProjectName:{
-		type: String,
+	projectId:{
+		type:Number,
 		require:true,
 	},
 	Priority:{
 		type:Number,
 		require:true,
 	},
-	CreatedAt:{
+	Created_Date:{
+		type:Date,
+		require:true,
+	},
+	Updated_Date:{
+		type:Date,
+		require:true,
+	},
+	Task_Status:{
+		type:Number,
+		require:true,
+	},
+	Assigner_ID:{
+		type:Number,
+		require:true,
+	},
+	User_ID:{
+		type:Number,
+		require:true,
+	},
+	Expected_End_Date:{
+		type:Date,
+		require:true,
+	},
+	Completed_Date:{
 		type:Date,
 	}
+	
 });
 
 
