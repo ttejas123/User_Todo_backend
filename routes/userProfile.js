@@ -1,5 +1,22 @@
 const express = require('express');
 let router = express.Router();
+const fs = require('fs');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+	destination:function(req, file, callback){
+		const dir = './uploads';
+		if(!fs.existsSync(dir)){
+			fs.mkdirSync(dir);
+		}
+		callback(null, dir);
+	},
+	filename:function (req, file, callback) {
+		callback(null, file.originalname)
+	}
+})
+
+const uploads = multer({storage:storage});
 
 const userModel = require("../models/userProfileSchema");
 
@@ -11,8 +28,6 @@ router.post('/signUp', async (req, res)=>{
 		Name:req.body.Name,
 		Email:req.body.Email,
 		password:req.body.password,
-		Mobnumber:req.body.Mobnumber,
-		profileUrl:req.body.profileUrl,
 		is_Deactivated: 0 ,
 		last_LogIn: todaysDate,
 		is_admin: req.body.is_admin,
@@ -39,22 +54,19 @@ router.post('/signUp', async (req, res)=>{
 })
 
 //Update Profile 
-router.post('/ProfieUpDate', async (req, res)=>{
+router.post('/ProfieUpDate',uploads.single("profileImage"), async (req, res)=>{
+	console.log(req.file);
 	const todaysDate = new Date();
-	const updateId = req.body.Data._id;
-	console.log(updateId);
-	const Name=	req.body.Name;
-	const Email= req.body.Email;
-	const password=	req.body.password;
-	const Mobnumber= req.body.Mobnumber;
-	const profileUrl= req.body.profileUrl;
+	// const updateId = req.body._id;
+	// console.log(updateId);
+	// const Name=	req.body.Name;
+	// const Email= req.body.Email;
+	const profileUrl = req.file.filename;
+	// const password=	req.body.password;
+	// const Mobnumber= req.body.Mobnumber;
 	const Updated_Date = todaysDate; 
 	try{
-	   await userModel.updateOne({_id:`${updateId}`}, {$set: {
-	   	Name:Name,
-		Email:Email,
-		password:password,
-		Mobnumber:Mobnumber,
+	   await userModel.updateOne({_id:`6077f72edcf88300154e9023`}, {$set: {
 		profileUrl:profileUrl,
 		Updated_Date: Updated_Date
 	   }});
@@ -67,7 +79,7 @@ router.post('/ProfieUpDate', async (req, res)=>{
 
 router.post('/Deactivate_Profile', async(req, res)=>{
 	const todaysDate = new Date();
-	const DeactivatUserId = req.body.Data._id;
+	const DeactivatUserId = req.body._id;
 	console.log(DeactivatUserId);
 	try{
 		await userModel.updateOne({_id:`${DeactivatUserId}`}, {$set:{
@@ -81,7 +93,7 @@ router.post('/Deactivate_Profile', async(req, res)=>{
 
 
 router.post('/LogIN',(req, res)=>{
-	const Email = req.body.Data.Email;
+	const Email = req.body.Email;
 	const Password = req.body.Data.Password;
 
 	userModel.find({Email:Email , password:password},(err, data)=>{
@@ -104,7 +116,7 @@ router.post('/LogIN',(req, res)=>{
 
 //read user data 
 router.get('/readUserData', (req, res)=>{
-	const userId = req.body.Data._id;
+	const userId = req.body._id;
 	userModel.find({_id:userId}, (err, data)=>{
 		if(err){
 			const Data = {

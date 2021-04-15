@@ -16,7 +16,6 @@ const userDataSchema = new mongoose.Schema({
 	},
 	Mobnumber:{
 		type: String,
-		require:true,
 	},
 	profileUrl:{
 		type:String,
