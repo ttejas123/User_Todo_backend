@@ -119,7 +119,7 @@ router.post('/LogIN',(req, res)=>{
 })
 
 //read user data 
-router.get('/readUserData', (req, res)=>{
+router.post('/readUserData', (req, res)=>{
 	const userId = req.body._id;
 	userModel.find({_id:userId}, (err, data)=>{
 		if(err){
