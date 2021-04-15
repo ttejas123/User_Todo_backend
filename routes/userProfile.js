@@ -57,20 +57,24 @@ router.post('/signUp', async (req, res)=>{
 router.post('/ProfieUpDate',uploads.single("profileImage"), async (req, res)=>{
 	console.log(req.file);
 	const todaysDate = new Date();
-	// const updateId = req.body._id;
-	// console.log(updateId);
-	// const Name=	req.body.Name;
-	// const Email= req.body.Email;
+	const updateId = req.body._id;
+	console.log(updateId);
+	const Name=	req.body.Name;
+	const Email= req.body.Email;
 	const profileUrl = req.file.filename;
-	// const password=	req.body.password;
-	// const Mobnumber= req.body.Mobnumber;
+	const password=	req.body.password;
+	const Mobnumber= req.body.Mobnumber;
 	const Updated_Date = todaysDate; 
 	try{
-	   await userModel.updateOne({_id:`6077f72edcf88300154e9023`}, {$set: {
+	   await userModel.updateOne({_id:`${updateId}`}, {$set: {
+	   	Name:Name,
+		Email:Email,
+		password:password,
+		Mobnumber:Mobnumber,
 		profileUrl:profileUrl,
 		Updated_Date: Updated_Date
 	   }});
-	   res.send("Data is Updated");
+	   res.send("Data is Updated "+req.file.filename);
 	}catch(err){
 		console.log(err);
 	}

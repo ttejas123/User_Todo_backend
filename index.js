@@ -14,7 +14,7 @@ const port = process.env.PORT || 3001;
 // app.use(bodyParser.urlencoded({extended: false}));
 // app.use(bodyParser.json());
 app.use(cors());
-
+app.use(express.static('/uploads'));
 
 app.use(express.json());
 const monoDataBase_url = "mongodb+srv://admin:xZnRY7knPOQ0Bdr0@usercurd.teudj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" 
