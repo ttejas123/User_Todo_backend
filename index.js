@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path');
 const mongoose = require('mongoose');
 
 const cors = require('cors');//cross origin resource sharing (share api data with react app)
@@ -14,7 +15,7 @@ const port = process.env.PORT || 3001;
 // app.use(bodyParser.urlencoded({extended: false}));
 // app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static('/uploads'));
+app.use('/static',express.static('./uploads'));
 
 app.use(express.json());
 const monoDataBase_url = "mongodb+srv://admin:xZnRY7knPOQ0Bdr0@usercurd.teudj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" 
