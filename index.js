@@ -7,7 +7,9 @@ const cors = require('cors');//cross origin resource sharing (share api data wit
 //const bodyParser = require('body-parser');
 const taskTodo = require('./routes/taskTodo');
 const userProfile = require('./routes/userProfile');
-const project = require('./routes/project');
+const projectsRouter = require('./routes/project_router');
+const logsRouter = require('./routes/log_router')
+
 //const logData = require('./routes/logData');
 
 //const team = require('./routes/team');
@@ -33,8 +35,8 @@ app.get('/',(req, res)=>{
 
  app.use('/taskTodo', taskTodo);
  app.use('/userProfile', userProfile);
-// app.use('/logdata', logData);
-// app.use('/project', project);
+app.use('/api', projectsRouter)
+app.use('/log', logsRouter)
 
 app.listen(port, ()=>{
 	console.log("serving 3001");
