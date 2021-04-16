@@ -98,7 +98,7 @@ router.post('/Deactivate_Profile', async(req, res)=>{
 
 router.post('/LogIN',(req, res)=>{
 	const Email = req.body.Email;
-	const Password = req.body.Data.Password;
+	const password = req.body.password;
 
 	userModel.find({Email:Email , password:password},(err, data)=>{
 		if(err){
